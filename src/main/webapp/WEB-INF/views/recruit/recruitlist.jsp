@@ -762,7 +762,7 @@ function getrecruitSearchList(pnum) {
 
  	 		//alert(val.jobSeq);
  				let app = "<tr class= 'list_col'>"
- 							+"<td>" + i +"</td>";
+ 							+"<td>" + val.rnum +"</td>";
 
  							if(val.del==0){
 
@@ -935,7 +935,9 @@ function loadPage( totalCount ) {
 
    //alert('몇개냐 :'+_totalPages);
    
-  $("#pagination").twbsPagination('destroy');
+  if($('#pagination').data('twbs-pagination')){
+   	$("#pagination").twbsPagination('destroy');
+   }
 
    $("#pagination").twbsPagination({
       startPage: 1,

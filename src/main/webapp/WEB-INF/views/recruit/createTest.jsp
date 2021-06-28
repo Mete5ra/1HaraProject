@@ -371,7 +371,7 @@
          	<c:choose> 
           		<c:when test="${dto.certifyUpdate == 'YES'}">
           			<br>
-          			<div class="col-md-12"><a class="btn btn-primary" href="javascript:jobUpdate();" sty>수정하기</a></div>
+          			<div class="col-md-12"><a class="btn btn-primary" id="submit" href="javascript:jobUpdate();">수정하기</a></div>
           			<input type="hidden" value="${dto.jobSeq }" id="_jobSeq" name="jobSeq">          		
           		</c:when> 
         	    <c:otherwise>
@@ -449,28 +449,155 @@ function jobRegi() {
     }
     
  
+    if($("input[name = companyId]").val()== ""){
+        alert('회사ID 입력창이 비어있습니다');
+        $("input[name = companyId]").focus();
+        return false;
+     }else if($("input[name = emp_Type]").val()== ""){
+  	   alert('고용타입을 선택해주세요');
+        $("input[name = emp_Type]").focus();
+        return false;
+     }else if($("input[name = education]").val()== ""){
+  	   alert('학력사항을 선택해주세요');
+  	      $("input[name = education]").focus();
+  	      return false;
+     }else if($("input[name = career_Type]").val()== ""){
+  	   alert('경력사항을 선택해주세요');
+  	      $("input[name = career_Type]").focus();
+  	      return false;
+     }else if($("input[name = jobVolumn]").val()== ""){
+  	   alert('채용인원수를 입력해주세요');
+  	      $("input[name = jobVolumn]").focus();
+  	      return false;
+     }else if($("input[name = salary]").val()== ""){
+  	   alert('급여를 입력해주세요');
+  	      $("input[name = salary]").focus();
+  	      return false;
+     }else if($("input[name = jobTitle]").val()== ""){
+  	   alert('공고제목을 입력해주세요');
+  	      $("input[name = jobTitle]").focus();
+  	      return false;
+     }else if($("input[name = buscode]").val()== ""){
+  	   alert('직무를 선택해주세요');
+  	      $("#_buscodeList1").focus();
+  	      return false;
+     }else if($("input[name = area1Name]").val()== ""){
+  	   alert('주소를 입력해주세요');
+  	      $("input[name = area1Name]").focus();
+  	      return false;
+     }else if($("input[name = area2Name]").val()== ""){
+  	   alert('상세주소를 입력해주세요');
+  	      $("input[name = area2Name]").focus();
+  	      return false;
+     }else if($("input[name = mgName]").val()== ""){
+  	   alert('담당자명을 입력해주세요');
+  	      $("input[name = mgName]").focus();
+  	      return false;
+     }else if($("input[name = mgPhone]").val()== ""){
+  	   alert('담당자연락처를 입력해주세요');
+  	      $("input[name = mgPhone]").focus();
+  	      return false;
+     }else if($("input[name = mgEmail]").val()== ""){
+  	   alert('담당자 이메일을 입력해주세요');
+  	      $("input[name = mgEmail]").focus();
+  	      return false;
+     }else if($("input[name = jobStart]").val()== ""){
+  	   alert('공고 시작일을 입력해주세요');
+  	      $("input[name = jobStart]").focus();
+  	      return false;
+     }else if($("input[name = jobEnd]").val()== ""){
+  	   alert('공고 종료일을 입력해주세요');
+  	      $("input[name = jobEnd]").focus();
+  	      return false;
+     }else{
+    	 $("#_recruitcrefrm").attr("action", "recuruitcreateAf.do").submit();
+     }
    
     
-    $("#_recruitcrefrm").attr("action", "recuruitcreateAf.do").submit();
+    
 
     
 }
 
 function jobUpdate() {
-   alert($("#_jobSeq").val());
+   //alert($("#_jobSeq").val());
    
    //alert("변경시작");
    var areaname = $("#sample6_address").val();
    
    areaname = areaname.split(" ");
    
-   alert(areaname);
+   //alert(areaname);
    //Area1Name쪽 변경된 데이터 변경 (자바쪽에서 nbsp split이 어려워서 nbsp를 ,로 변경)
    $("#sample6_address").val(areaname);
    
    //alert($("#_areaName").val());
+   
+   if($("input[name = companyId]").val()== ""){
+	      alert('회사ID 입력창이 비어있습니다');
+	      $("input[name = companyId]").focus();
+	      return false;
+	   }else if($("input[name = emp_Type]").val()== ""){
+		   alert('고용타입을 선택해주세요');
+	      $("input[name = emp_Type]").focus();
+	      return false;
+	   }else if($("input[name = education]").val()== ""){
+		   alert('학력사항을 선택해주세요');
+		      $("input[name = education]").focus();
+		      return false;
+	   }else if($("input[name = career_Type]").val()== ""){
+		   alert('경력사항을 선택해주세요');
+		      $("input[name = career_Type]").focus();
+		      return false;
+	   }else if($("input[name = jobVolumn]").val()== ""){
+		   alert('채용인원수를 입력해주세요');
+		      $("input[name = jobVolumn]").focus();
+		      return false;
+	   }else if($("input[name = salary]").val()== ""){
+		   alert('급여를 입력해주세요');
+		      $("input[name = salary]").focus();
+		      return false;
+	   }else if($("input[name = jobTitle]").val()== ""){
+		   alert('공고제목을 입력해주세요');
+		      $("input[name = jobTitle]").focus();
+		      return false;
+	   }else if($("input[name = buscode]").val()== ""){
+		   alert('직무를 선택해주세요');
+		      $("#_buscodeList1").focus();
+		      return false;
+	   }else if($("input[name = area1Name]").val()== ""){
+		   alert('주소를 입력해주세요');
+		      $("input[name = area1Name]").focus();
+		      return false;
+	   }else if($("input[name = area2Name]").val()== ""){
+		   alert('상세주소를 입력해주세요');
+		      $("input[name = area2Name]").focus();
+		      return false;
+	   }else if($("input[name = mgName]").val()== ""){
+		   alert('담당자명을 입력해주세요');
+		      $("input[name = mgName]").focus();
+		      return false;
+	   }else if($("input[name = mgPhone]").val()== ""){
+		   alert('담당자연락처를 입력해주세요');
+		      $("input[name = mgPhone]").focus();
+		      return false;
+	   }else if($("input[name = mgEmail]").val()== ""){
+		   alert('담당자 이메일을 입력해주세요');
+		      $("input[name = mgEmail]").focus();
+		      return false;
+	   }else if($("input[name = jobStart]").val()== ""){
+		   alert('공고 시작일을 입력해주세요');
+		      $("input[name = jobStart]").focus();
+		      return false;
+	   }else if($("input[name = jobEnd]").val()== ""){
+		   alert('공고 종료일을 입력해주세요');
+		      $("input[name = jobEnd]").focus();
+		      return false;
+	   }else{
+		   $("#_recruitcrefrm").attr("action", "recuruitupdateAf.do").submit();
+	   }
 
-   $("#_recruitcrefrm").attr("action", "recuruitupdateAf.do").submit();
+   
 }
  
  
@@ -486,7 +613,7 @@ $(".btnRegister").click(function(){
 function formChk(select) {
    
    var check = document.frm;
-   alert(select);
+   //alert(select);
 
    
    if($("input[name = companyId]").val()== ""){
@@ -919,7 +1046,7 @@ $("#deleteResult").click(function() {
 	var busname = '${dto.busname}';
 	var busnameArr = busname.split(',');
 	
-	alert(busnameArr[0]);
+	//alert(busnameArr[0]);
 	cnt = 1; 
 	count = 1; 
 	
@@ -1042,7 +1169,7 @@ for(var i=0; i<busValue; i++){
   //Assuming there is a <button id="submit">Submit</button> in your application.
     document.querySelector( '#submit' ).addEventListener( 'click', () => {
     	const editorData = editor.getData();
-  		alert("이게 에디터 데이터 : "+editorData);
+  		//alert("이게 에디터 데이터 : "+editorData);
 	    $("#_jobContent").val(editorData);
     } );
   

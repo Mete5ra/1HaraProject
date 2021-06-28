@@ -210,17 +210,18 @@
 
 <!-- 최종 상세 검색 리스트 가져오기 -->
 <select id="getRecruitSearchList" parameterType="java.util.HashMap" resultType="bit.com.a.dto.RecruitDto">
-   SELECT DISTINCT ROWNUM, J.JOBSEQ , J.COMPANYID , J.JOBTITLE , J.JOBCONTENT , J.AREA1NAME,
+   SELECT DISTINCT J.RNUM, J.JOBSEQ , J.COMPANYID , J.JOBTITLE , J.JOBCONTENT , J.AREA1NAME,
                J.AREA2NAME, J.JOBVOLUMN, J.SALARY, J.JOBSTART, J.JOBEND, J.EMP_TYPE,
                J.EDUCATION , J.CAREER_TYPE, J.READCOUNT, J.REGDATE, J.BUSCODE, J.DEL,
          C.COMPANYNAME, E.EDUNAME, T.EMP_NAME, P.CAREER_DESC
 
-   FROM (SELECT J.JOBSEQ , J.COMPANYID , J.JOBTITLE , J.JOBCONTENT , J.AREA1NAME,
+   FROM (SELECT ROW_NUMBER()OVER(ORDER BY J.JOBSEQ DESC)AS RNUM, J.JOBSEQ , J.COMPANYID , J.JOBTITLE , J.JOBCONTENT , J.AREA1NAME,
                J.AREA2NAME, J.JOBVOLUMN, J.SALARY, J.JOBSTART, J.JOBEND, J.EMP_TYPE,
                J.EDUCATION , J.CAREER_TYPE, J.CAREER_DESC, J.READCOUNT, J.REGDATE, J.BUSCODE, J.DEL, C.COMPANYNAME
-         FROM JOB J, BUSINESS C
-         WHERE J.COMPANYID = C.MEMBERID 
-         	AND J.DEL=0
+         FROM JOB J, BUSINESS C, bscodstack K
+         WHERE J.COMPANYID = C.MEMBERID AND 
+               J.JOBSEQ = K.JOBSEQ
+            AND J.DEL=0
       <!-- AND J.DEL =0 -->
          <if test="choice != null and choice != ''and search != null and search != ''">
           <if test="choice == 'title'">
@@ -228,8 +229,34 @@
           <if test="choice == 'companyname'">
                AND C.COMPANYNAME LIKE '%'||#{search}||'%'</if>
          </if>
-         
-	     
+         <!-- 학력조건 -->
+         <if test='education != 0'>
+           <![CDATA[  AND J.EDUCATION <= ${education}  ]]>
+         </if>
+      
+         <!-- 경력조건 -->
+         <if test="CareerEnd != 100 and CareerEnd != ''">
+            <if test = "CareerEnd != '100' ">
+               <![CDATA[AND j.career_type <= ${param.careerEnd}]]>
+            </if>
+          </if>
+      
+          <!-- 지역코드 2번으로 검색 -->
+                <if test="arrAreacode != null and arrAreacode != ''">
+            <foreach collection="arrAreacode" item="item" index="index" separator="OR" open="AND(" close=")">
+         J.AREA2NAME = #{item}
+            </foreach>
+               </if>
+         <!-- 직무코드2번으로 검색 OR조건 -->
+             <if test="arrBusi != null and arrBusi != ''">
+            <foreach collection="arrBusi" item="item" index="index" separator="OR" open="AND(" close=" ) ">
+         K.RBUSCODE = #{item}
+            </foreach>
+             </if>
+             
+          GROUP BY J.JOBSEQ , J.COMPANYID , J.JOBTITLE , J.JOBCONTENT , J.AREA1NAME,
+               J.AREA2NAME, J.JOBVOLUMN, J.SALARY, J.JOBSTART, J.JOBEND, J.EMP_TYPE,
+               J.EDUCATION , J.CAREER_TYPE, J.CAREER_DESC, J.READCOUNT, J.REGDATE, J.BUSCODE, J.DEL, C.COMPANYNAME
          )J
    <!-- 회사이름가져오기 -->
    JOIN BUSINESS C
@@ -245,34 +272,8 @@
    ON P.CAREER_TYPE = J.CAREER_TYPE
    
    WHERE 1=1
-   <!-- 학력조건 -->
-   <if test='education != 0'>
-     <![CDATA[  AND J.EDUCATION <= ${education}  ]]>
-   </if>
-
-   <!-- 경력조건 -->
-   <if test="CareerEnd != 100 and CareerEnd != ''">
-      <if test = "CareerEnd != '100' ">
-         <![CDATA[AND j.career_type <= ${param.careerEnd}]]>
-      </if>
-    </if>
-
-    <!-- 지역코드 2번으로 검색 -->
-          <if test="arrAreacode != null and arrAreacode != ''">
-      <foreach collection="arrAreacode" item="item" index="index" separator="OR" open="AND(" close=")">
-   J.AREA2NAME = #{item}
-      </foreach>
-         </if>
-   <!-- 직무코드2번으로 검색 OR조건 -->
-       <if test="arrBusi != null and arrBusi != ''">
-      <foreach collection="arrBusi" item="item" index="index" separator="OR" open="AND(" close=" ) ">
-   K.RBUSCODE = #{item}
-      </foreach>
-       </if>
-   AND ROWNUM BETWEEN ${param.start} AND ${param.end}
    
-   
-   
+   AND J.RNUM BETWEEN ${param.start} AND ${param.end}
    ORDER BY J.JOBSEQ DESC
 
 </select>
