@@ -2,19 +2,7 @@
 
 <img width="864" alt="관리자마이페이지1" src="https://user-images.githubusercontent.com/81217201/123573863-bd781180-d809-11eb-88b7-57e3768adc97.PNG">
 
-![image](https://user-images.githubusercontent.com/81217201/123582961-bd800d80-d819-11eb-8c1a-410e6d7e3db5.png)
 
-![image](https://user-images.githubusercontent.com/81217201/123582987-c96bcf80-d819-11eb-8f14-6370877e030d.png)
-
-![image](https://user-images.githubusercontent.com/81217201/123582994-cc66c000-d819-11eb-91ca-da0ce52d2f8b.png)
-
-![image](https://user-images.githubusercontent.com/81217201/123582995-ce308380-d819-11eb-85eb-23d361ae9088.png)
-
-![image](https://user-images.githubusercontent.com/81217201/123582996-d12b7400-d819-11eb-9955-4a4dc84f18f5.png)
-
-![image](https://user-images.githubusercontent.com/81217201/123583002-d38dce00-d819-11eb-87a6-79bf076bd9b7.png)
-
-![image](https://user-images.githubusercontent.com/81217201/123583004-d5579180-d819-11eb-84fe-ff9aa0a51f3c.png)
 
 ![image](https://user-images.githubusercontent.com/81217201/123583008-d7b9eb80-d819-11eb-93a5-3db0e639ff8c.png)
 
